@@ -1,0 +1,71 @@
+version: "0.1"
+
+pain:
+  description: "A problematic state or experience, including not-yet-recognized pain."
+  required:
+    - id
+    - subject
+    - statement
+    - awareness
+    - confirmation
+    - provenance
+
+  properties:
+    id:
+      type: string
+    subject:
+      type: string
+    object:
+      type: string
+    statement:
+      type: string
+    state:
+      type: string
+    desired_state:
+      type: string
+    gap:
+      type: string
+    experience:
+      type: array
+      items:
+        type: string
+    evidence:
+      type: array
+      items:
+        type: string
+    awareness:
+      type: enum
+      values: [explicit, recalled, suspected, inferred]
+    recurrence:
+      type: enum
+      values: [one_off, recurring, persistent, unknown]
+    impact:
+      type: object
+      properties:
+        time: string
+        cost: string
+        emotion: string
+        risk: string
+        opportunity: string
+    trigger:
+      type: string
+    hypothesis:
+      type: string
+    confirmation:
+      type: enum
+      values: [unconfirmed, acknowledged, verified, rejected]
+    provenance:
+      type: object
+      required: [source]
+      properties:
+        source:
+          type: enum
+          values: [explicit, experience, observation, pattern, consequence, recall, agent]
+        events:
+          type: array
+          items:
+            type: string
+    related_issues:
+      type: array
+      items:
+        type: string
