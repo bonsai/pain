@@ -1,0 +1,102 @@
+version: "0.1"
+
+pain_types:
+  - id: friction
+    name: 摩擦
+    definition: "本来スムーズに進むはずの行為が引っかかる"
+    signals: [操作の多さ, 手間, 引っかかり, 不便]
+
+  - id: repetition
+    name: 繰り返し
+    definition: "同じ行為を何度も繰り返さなければならない"
+    signals: [repeat, rework, 毎回, 繰り返し]
+
+  - id: waiting
+    name: 待ち
+    definition: "他者・処理・環境を待つ時間が発生する"
+    signals: [wait, queue, pending, 待ち時間]
+
+  - id: uncertainty
+    name: 不確実性
+    definition: "何が起きるか、どうなるか分からない"
+    signals: [unknown, ambiguity, 不安, 予測不能]
+
+  - id: information_gap
+    name: 情報不足
+    definition: "判断や行動に必要な情報が足りない"
+    signals: [missing, unknown, 探す, 調べる]
+
+  - id: information_overload
+    name: 情報過多
+    definition: "情報が多すぎて必要なものを選べない"
+    signals: [too_many, noise, overload]
+
+  - id: mismatch
+    name: 不一致
+    definition: "期待・現実・仕様・認識などが一致しない"
+    signals: [difference, mismatch, discrepancy]
+
+  - id: loss
+    name: 損失
+    definition: "時間・金銭・資源・機会などが失われる"
+    signals: [cost, waste, loss]
+
+  - id: failure
+    name: 失敗
+    definition: "期待した結果が得られない"
+    signals: [error, failure, retry]
+
+  - id: rework
+    name: 手戻り
+    definition: "一度進めた作業を戻ってやり直す"
+    signals: [rollback, rework, correction]
+
+  - id: dependency
+    name: 依存
+    definition: "他者・他システム・特定人物に依存している"
+    signals: [handoff, dependency, approval]
+
+  - id: interruption
+    name: 中断
+    definition: "進行中の行為が途中で止まる"
+    signals: [interrupt, context_switch, pause]
+
+  - id: avoidance
+    name: 回避
+    definition: "Painを避けるために行為そのものを避ける"
+    signals: [avoid, postpone, abandon]
+
+  - id: invisibility
+    name: 不可視
+    definition: "問題や状態が見えず、存在に気づけない"
+    signals: [hidden, invisible, unknown_state]
+
+  - id: memory
+    name: 記憶
+    definition: "過去の経験や必要な情報を思い出せない"
+    signals: [forget, recall, lost_context]
+
+  - id: coordination
+    name: 調整
+    definition: "複数の主体・予定・状態を合わせることに負荷がある"
+    signals: [schedule, coordination, negotiation]
+
+  - id: decision
+    name: 決定
+    definition: "選択肢が多い、または判断基準がなく決められない"
+    signals: [choice, ambiguity, hesitation]
+
+  - id: trust
+    name: 信頼
+    definition: "相手・情報・システムを信頼できず行動できない"
+    signals: [doubt, verification, credibility]
+
+  - id: expression
+    name: 表現
+    definition: "感じていること・知っていること・要求をうまく表現できない"
+    signals: [cannot_explain, wording, communication]
+
+  - id: opportunity
+    name: 機会損失
+    definition: "存在する機会を認識・利用できない"
+    signals: [missed_opportunity, unnoticed, timing]
