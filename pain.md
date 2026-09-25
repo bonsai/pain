@@ -79,3 +79,27 @@ Issue を起点に考えると、作業は CLI・Web・IDE に分かれ、文脈
 - 新規セッションを開始しても、スライダーはメインスレッド上に最初から表示されており、呼び出す手間もない。
 - スライダーが具体的に何を調整するのかは未確認（要確認）。「物を作る速度」「経済のインタラクション」「温度/ランプ」など想定は複数あるが、断定しない。
 - opencode 側で代替できる範囲（`/models` によるモデル変更、`changeModel`、数値パラメータ）とは感触が違い、連続量をリアルタイムで動かす感覚が再現されていない。
+
+## Journal から採取した Pain（2026-09）
+
+### ブラウザ・CLI の接続（09-08, chatgpt-cli）
+- ブラウザ保存セッション（ChatGPT）を CLI から取得するのに、プロファイル特定・Cookie 複製・デバッグポート起動と手作業が積み重なり、目的の操作に届く前の準備が重い。
+- PowerShell の `Start-Process -ArgumentList` はスペースを含むパスを勝手に分割し、`--user-data-dir="C:\...\Edge\User"` が `Data` `11` に壊れる。bat 経由や単一文字列+引用符という回避が必要になる。
+- WSL 内の headless Chrome が 9222 を既に占有しており、接続先が Windows Edge ではなく「WSL 内 Chrome」を向く罠。ポートの帰属確認が毎回必要。
+- Windows Edge の `--remote-debugging-port` は `127.0.0.1` だけにバインドされ、WSL からの到達がひと手間（ホスト IP の把握）を要する。
+
+### 秘密情報の漏洩（09-16, key-scanner）
+- `git add .` が `key.json` を拾って Initial commit に秘密鍵が混入。`.gitignore` の漏れが原因で「時すでに遅し」のケースが起きる。
+- 失効済みで被害ゼロながら、過去コミットから秘密を消す作業は重く、優先度低迷で放置される。
+- コミットメッセージの罠: `wsl.exe` が `-m "feat: ..."` を `:` で切り、メッセージが空振り。`force-with-lease` で amend という余計な行程が必要になる（以後 `git commit -F <file>` 運用）。
+
+### LM Studio / ローカル LLM（09-24）
+- ローカル LLM のサーバがランダムポート（61996 / 53451）で起動し、固定 1234 が開いていない。「Enable Local LLM Service」が実質 OFF なのに ON に見える設計が分かりにくい。
+- LM Studio は MCP Host であり MCP Server ではないため、opencode の `mcp.lmstudio`（`/mcp` API）は存在しないエンドポイントを指しており、動作するはずがない設定を一度作ってしまう。
+- `.js` の起動ハンドラが MS 系 IDE（VS / VSCode）に奪われ、nodejs で起動しようとしても定着しない。Windows Script Host のまま放置される設定差分。
+
+### ツールの起動・応答の遅さ（09-24）
+- `bash -i` の init が 2.0s（nvm+mise+opam が支配）。pi の sessions は 39MB（69ファイル・最大25MB）で解析に時間がかかる。
+- pi 経由の sakura API 応答は ~18s（直接 curl は 0.5s）。巨大なツール定義＋reasoning モデルの思考が要因と推定されるが、切り分けがまだ。
+- pwsh→wsl の引数変換で `%3N` の `3` や `$var` が消え、インライン計測ができない。計測スクリプトファイル経由という回避が必要になる。
+- 非対話シェルでは `SAKURA_API_KEY` が読めない（`.bashrc` の interactive guard 疑い）。検証のたびに明示 `export` が必要で、ベンチ・診断スクリプトが次々 Set を作る原因になる。
